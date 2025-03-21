@@ -6,6 +6,13 @@ import os
 import csv
 import time
 from datetime import datetime
+
+from win32com.client import Dispatch
+
+def speak(str1):
+    speak=Dispatch(("SAPI.SpVoice"))
+    speak.speak(str1)
+
 video = cv.VideoCapture(0)
 facedetect = cv.CascadeClassifier('data/haarcascade_frontalface_default.xml')
 
@@ -43,6 +50,8 @@ while True:
     cv.imshow("frame",frame)
     k = cv.waitKey(1)
     if k == ord("o"):
+        speak("Attendance taken")
+        time.sleep(5)
         if exist:
             with open("Attendence/Attendence_" + date + ".csv","+a") as csvfile:
                 writer = csv.writer(csvfile)
